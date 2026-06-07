@@ -1,0 +1,27 @@
+{
+  "name": "podcast-player-cli",
+  "version": "0.0.2",
+  "description": "Terminal podcast player distributed as a cross-platform Go binary.",
+  "bin": {
+    "podcast-player-cli": "./bin/podcast-player-cli.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/"
+  ],
+  "scripts": {
+    "postinstall": "node ./scripts/install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wen-templari/podcast-player-cli.git"
+  },
+  "homepage": "https://github.com/wen-templari/podcast-player-cli",
+  "bugs": {
+    "url": "https://github.com/wen-templari/podcast-player-cli/issues"
+  },
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  }
+}
