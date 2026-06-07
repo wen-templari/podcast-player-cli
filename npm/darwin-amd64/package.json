@@ -1,0 +1,19 @@
+{
+  "name": "podcast-player-cli-darwin-amd64",
+  "version": "0.0.5",
+  "description": "macOS amd64 binary for podcast-player-cli.",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "files": [
+    "podcast-player-cli"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wen-templari/podcast-player-cli"
+  }
+}
