@@ -1,6 +1,6 @@
 {
   "name": "podcast-player-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Terminal podcast player distributed as a cross-platform Go binary.",
   "bin": {
     "podcast-player-cli": "./bin/podcast-player-cli.js"
