@@ -94,9 +94,7 @@ jobs:
 
   publish-npm:
     name: Publish npm Package
-    needs:
-      - build-binaries
-      - publish-release
+    needs: publish-release
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
 
@@ -109,34 +107,16 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
-          package-manager-cache: false
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: dist
-          pattern: release-*
-          merge-multiple: true
 
       - name: Set package version from tag
         run: |
           tag_version="${GITHUB_REF_NAME#v}"
-          node ./scripts/sync-npm-version.js "$tag_version"
-
-      - name: Prepare platform npm packages
-        run: |
-          cp dist/podcast-player-cli_${GITHUB_REF_NAME}_darwin_amd64 npm/darwin-amd64/podcast-player-cli
-          cp dist/podcast-player-cli_${GITHUB_REF_NAME}_darwin_arm64 npm/darwin-arm64/podcast-player-cli
-          cp dist/podcast-player-cli_${GITHUB_REF_NAME}_linux_amd64 npm/linux-amd64/podcast-player-cli
-          cp dist/podcast-player-cli_${GITHUB_REF_NAME}_linux_arm64 npm/linux-arm64/podcast-player-cli
-          chmod +x npm/darwin-amd64/podcast-player-cli npm/darwin-arm64/podcast-player-cli npm/linux-amd64/podcast-player-cli npm/linux-arm64/podcast-player-cli
-
-      - name: Publish platform packages
-        run: |
-          npm publish ./npm/darwin-amd64 --access public
-          npm publish ./npm/darwin-arm64 --access public
-          npm publish ./npm/linux-amd64 --access public
-          npm publish ./npm/linux-arm64 --access public
+          package_version="$(node -p "require('./package.json').version")"
+          if [ "$package_version" = "$tag_version" ]; then
+            echo "package.json already matches tag version $tag_version"
+            exit 0
+          fi
+          npm version "$tag_version" --no-git-tag-version
 
       - name: Publish package
         run: npm publish --access public

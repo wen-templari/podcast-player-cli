@@ -1,16 +1,14 @@
 {
   "name": "podcast-player-cli",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "description": "Terminal podcast player distributed as a cross-platform Go binary.",
   "bin": "./bin/podcast-player-cli.js",
   "files": [
-    "bin/"
+    "bin/",
+    "scripts/"
   ],
-  "optionalDependencies": {
-    "podcast-player-cli-darwin-amd64": "0.0.5",
-    "podcast-player-cli-darwin-arm64": "0.0.5",
-    "podcast-player-cli-linux-amd64": "0.0.5",
-    "podcast-player-cli-linux-arm64": "0.0.5"
+  "scripts": {
+    "postinstall": "node ./scripts/install.js"
   },
   "repository": {
     "type": "git",
